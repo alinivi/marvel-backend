@@ -8,17 +8,13 @@ app.use(cors());
 
 app.get("/characters", async (req, res) => {
   try {
-    if (!req.query.page) req.query.page = 1;
-    if (!req.query.search) req.query.search = "";
+    if (!req.query.skip) req.query.skip = 0;
+    if (!req.query.name) req.query.name = "";
     const response = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${
-        process.env.YOUR_API_KEY
-      }&skip=${(req.query.page - 1) * 100}&name=${req.query.search}`
+      `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${process.env.YOUR_API_KEY}&skip=${req.query.skip}&name=${req.query.name}`
     );
     console.log(
-      `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${
-        process.env.YOUR_API_KEY
-      }&skip=${(req.query.page - 1) * 100}&name=${req.query.search}`
+      `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${process.env.YOUR_API_KEY}&skip=${req.query.skip}&name=${req.query.name}`
     );
     res.json(response.data);
   } catch (error) {
@@ -28,12 +24,10 @@ app.get("/characters", async (req, res) => {
 
 app.get("/comics", async (req, res) => {
   try {
-    if (!req.query.page) req.query.page = 1;
-    if (!req.query.search) req.query.search = "";
+    if (!req.query.skip) req.query.skip = 0;
+    if (!req.query.title) req.query.title = "";
     const response = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${
-        process.env.YOUR_API_KEY
-      }&skip=${(req.query.page - 1) * 100}&title=${req.query.search}`
+      `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${process.env.YOUR_API_KEY}&skip=${req.query.skip}&title=${req.query.title}`
     );
     res.json(response.data);
   } catch (error) {
